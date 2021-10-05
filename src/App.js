@@ -17,7 +17,9 @@ function App() {
       <NavItem icon={<BellIcon />} />
       <NavItem icon={<MessengerIcon />} />
 
-      <NavItem icon={<CaretIcon />}>{/* Dropdown goes here */}</NavItem>
+      <NavItem icon={<CaretIcon />}>
+        <DropdownMenu />
+      </NavItem>
     </Navbar>
   );
 }
@@ -38,7 +40,32 @@ function NavItem(props) {
       <a href='#' className='icon-button' onClick={() => setOpen(!open)}>
         {props.icon}
       </a>
+
+      {open && props.children}
     </li>
+  );
+}
+
+function DropdownMenu() {
+  function DropdownItem(props) {
+    return (
+      <a href='#' className='menu-item'>
+        <span className='icon-button'>{props.leftIcon}</span>
+
+        {props.children}
+
+        <span className='icon-right'>{props.rightIcon}</span>
+      </a>
+    );
+  }
+
+  return (
+    <div className='dropdown'>
+      <DropdownItem>My Profile</DropdownItem>
+      <DropdownItem leftIcon={<CogIcon />} rightIcon={<ChevronIcon />}>
+        My Profile
+      </DropdownItem>
+    </div>
   );
 }
 
